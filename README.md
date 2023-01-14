@@ -1,10 +1,10 @@
 # CPC-Backend
 
-##Tech Stack
+## Tech Stack
 
-Node JS
-Express
-Mongo DB Cloud Storage
+- Node JS
+- Express
+- Mongo DB Cloud Storage
 
 ## Packages
 - mongoose
