@@ -1,16 +1,25 @@
 // Mongoose
 const mongoose = require("mongoose");
+
+// Dotenv
+require("dotenv").config();
+
+// MongoDB URI
+const DB = process.env.MONGODB_URI;
 mongoose.set('strictQuery', true);
 
-mongoose.connect('mongodb://127.0.0.1:27017/CodeChef');
-var mongoDB = mongoose.connection;
-mongoDB.on('connected', function() {
-    console.log('database is connected successfully');
-});
-mongoDB.on('disconnected',function(){
-    console.log('database is disconnected successfully');
-})
-mongoDB.on('error', console.error.bind(console, 'connection error:'));
+mongoDB().catch((err) => console.log(err));
+
+async function mongoDB() {
+  await mongoose.connect(
+    DB,
+    {
+      dbName: "CodeChefPCCOE",
+    },
+    () => {
+      console.log("Connected successfully to MongoDb :)");
+    }
+  );
+}
 
 module.exports = mongoDB;
-
