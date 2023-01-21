@@ -9,13 +9,15 @@ const MongoDB = require("./Database/Mongo.js");
 
 // Routes
 const Login = require("./Routes/Login");
+const Signup = require("./Routes/Signup");
 const Event = require("./Routes/Event");
 
 
 app.get("/",(req, res) => {
     res.send("Hello World");
 });
-app.use("/Login", Login);
+app.use("/api/v1.0/User/Login", Login);
+app.use("/api/v1.0/User/Signup", Signup);
 app.use("/Event", Event);
 
 
