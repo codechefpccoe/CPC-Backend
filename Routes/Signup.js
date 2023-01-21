@@ -12,6 +12,7 @@ const saltRounds = 5;
 //? User Signup
 router.post("/", async (req, res) => {
   try {
+
     const { userName, email, password } = req.body;
 
     //   Password Encryption Using Bcrypt
@@ -24,6 +25,9 @@ router.post("/", async (req, res) => {
       email,
       password: encryptedPassword,
     });
+
+   
+    console.log(NewUser)
 
     //  Save User and Check for Errors
     NewUser.save((err) => {
@@ -41,6 +45,9 @@ router.post("/", async (req, res) => {
           .send({ message: "User is registered successfully" });
       }
     });
+
+
+
   } catch (error) {
     console.log(error);
   }

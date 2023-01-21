@@ -11,7 +11,15 @@ const MongoDB = require("./Database/Mongo.js");
 const Login = require("./Routes/Login");
 const Signup = require("./Routes/Signup");
 const Event = require("./Routes/Event");
+const cors = require("cors")
 
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+  methods: "GET, POST, PUT"
+}
+
+app.use(cors(corsOptions))
 
 app.get("/",(req, res) => {
     res.send("Hello World");
@@ -19,7 +27,6 @@ app.get("/",(req, res) => {
 app.use("/api/v1.0/User/Login", Login);
 app.use("/api/v1.0/User/Signup", Signup);
 app.use("/Event", Event);
-
 
 
 
