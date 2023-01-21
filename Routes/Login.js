@@ -43,11 +43,12 @@ router.post("/", async (req, res) => {
     }
 
     // Generate Cookie
-    const token = jwt.sign({ user: user.userName }, process.env.SECRET_KEY);
+    const token = await jwt.sign({ user: user.userName }, process.env.SECRET_KEY);
+    console.log(token);
     res.cookie("token", token, { httpOnly: true });
 
     // Success
-    User.updateOne({}, { $push: { Cookie: token } }, (err) => {
+    User.updateOne(user, { $push: { Cookie: token } }, (err, data) => {
       if (err) {
         console.log(err);
         return res.status(500).send({

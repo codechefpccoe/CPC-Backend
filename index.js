@@ -13,13 +13,13 @@ const Signup = require("./Routes/Signup");
 const Event = require("./Routes/Event");
 const cors = require("cors")
 
-var corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200,
-  methods: "GET, POST, PUT"
-}
+// var corsOptions = {
+//   origin: '*',
+//   optionsSuccessStatus: 200,
+//   methods: "GET, POST, PUT"
+// }
 
-app.use(cors(corsOptions))
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.get("/",(req, res) => {
     res.send("Hello World");
