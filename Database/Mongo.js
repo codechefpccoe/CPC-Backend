@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // MongoDB URI
-const DB = process.env.MONGODB_URI;
+// const DB = process.env.MONGODB_URI;
+const DB = "mongodb+srv://admin:admin@cpc-db.3ie8obm.mongodb.net/?retryWrites=true&w=majority"
 mongoose.set('strictQuery', true);
 
 mongoDB().catch((err) => console.log(err));

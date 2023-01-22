@@ -43,8 +43,9 @@ router.post("/", async (req, res) => {
     }
 
     // Generate Cookie
-    const token = await jwt.sign({ user: user.userName }, process.env.SECRET_KEY);
+    const token = await jwt.sign({ user: user.userName }, "codechefpccoe");
     console.log(token);
+
     res.cookie("token", token, { httpOnly: true });
 
     // Success
@@ -57,7 +58,7 @@ router.post("/", async (req, res) => {
       }
       return res
         .status(200)
-        .send({ message: "User is logged in successfully" });
+        .send({ message: "User is logged in successfully", token : token });
     });
   } catch (error) {
     console.log(error);

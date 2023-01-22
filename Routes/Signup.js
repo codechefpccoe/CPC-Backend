@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
       password: encryptedPassword,
     });
 
+    console.log(NewUser)
     //  Save User and Check for Errors
     NewUser.save((err) => {
       if (err) {
