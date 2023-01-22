@@ -2,7 +2,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-
 const UserSchema = new Schema({
   userName: {
     type: String,
@@ -22,11 +21,9 @@ const UserSchema = new Schema({
     default: Date.now,
   },
   Cookie: {
-    type: [String],
+    type: String,
   },
 });
-
-
 
 const User = mongoose.model("User", UserSchema);
 

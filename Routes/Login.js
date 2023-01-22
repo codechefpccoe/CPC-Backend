@@ -1,22 +1,19 @@
 // Express
 const express = require("express");
 const router = express.Router();
-
 // Mongoose Model
 const User = require("../Models/UserSchema");
-
 // JsonWebToken
 const jwt = require("jsonwebtoken");
-
 // Dotenv
 require("dotenv").config();
-
 // Cookie Parser
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
-
 // Bcrypt
 const bcrypt = require("bcrypt");
+// Middleware for Authentication
+const Authenticate = require("../Middleware/Auth");
 
 //? User Login
 router.post("/", async (req, res) => {
@@ -28,11 +25,6 @@ router.post("/", async (req, res) => {
       userName: userName,
     });
 
-    //! Check if User Exists Not feasible
-    // if (!user) {
-    //   return res.status(404).send({ message: "User Not found." });
-    // }
-
     // Check if Password is Correct
     const passwordIsValid = await bcrypt.compareSync(password, user.password);
 
@@ -43,22 +35,19 @@ router.post("/", async (req, res) => {
     }
 
     // Generate Cookie
-    const token = await jwt.sign({ user: user.userName }, process.env.SECRET_KEY);
-    console.log(token);
-    res.cookie("token", token, { httpOnly: true });
+    const token = await jwt.sign(
+      { user: user.userName },
+      process.env.SECRET_KEY
+    );
 
     // Success
-    User.updateOne(user, { $push: { Cookie: token } }, (err, data) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send({
-          message: "Error in Updating Cookie. Please try again later",
-        });
-      }
-      return res
-        .status(200)
-        .send({ message: "User is logged in successfully" });
-    });
+    return res
+      .status(200)
+      .send({
+        message: "User is logged in successfully",
+        token: token,
+        user: user,
+      });
   } catch (error) {
     console.log(error);
   }
