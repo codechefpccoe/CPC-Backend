@@ -1,22 +1,19 @@
 // Express
 const express = require("express");
 const router = express.Router();
-
 // Mongoose Model
 const User = require("../Models/UserSchema");
-
 // JsonWebToken
 const jwt = require("jsonwebtoken");
-
 // Dotenv
 require("dotenv").config();
-
 // Cookie Parser
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
-
 // Bcrypt
 const bcrypt = require("bcrypt");
+// Middleware for Authentication
+const Authenticate = require("../Middleware/Auth");
 
 //? User Login
 router.post("/", async (req, res) => {
@@ -27,11 +24,6 @@ router.post("/", async (req, res) => {
     const user = await User.findOne({
       userName: userName,
     });
-
-    //! Check if User Exists Not feasible
-    // if (!user) {
-    //   return res.status(404).send({ message: "User Not found." });
-    // }
 
     // Check if Password is Correct
     const passwordIsValid = await bcrypt.compareSync(password, user.password);
