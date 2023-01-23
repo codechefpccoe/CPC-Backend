@@ -4,7 +4,7 @@ const app = express.Router()
 
 
 app.get('/', (req, res) => {
-    res.send('User API Request Page');
+    
 });
 
 
